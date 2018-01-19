@@ -1,0 +1,100 @@
+---
+swagger: "2.0"
+
+info:
+  version: 1.0.0
+  title: uPortal Messaging API
+  description: A simple API to handle messaging inside uportal-home.
+  
+schemes:
+  - https
+host:   uportal.messaging
+basePath: /uPortalMessaging
+
+paths: 
+  /allNotifications:
+    get:
+      summary: Gets all Notifications
+      description: Returns an array of all notifications for this user.
+      responses:
+        200:
+          description: An array of all notifications which this user may view.
+        
+  /allMessages:
+    get:
+      summary: Gets all Messages
+      description: Returns an array of all messages for this user.
+      responses:
+        200:
+          description: An array of all messages which this user may view.
+
+definitions:
+  Message:
+    required:
+      - id
+    properties:
+      id:
+        type: string
+      title:
+        type: string
+      titleShort:
+        type: string
+      description:
+        type: string
+      descriptionShort:
+        type: string
+      messageType: 
+        type: string
+        description: Valid values are announcement or notification
+      goLiveDate:
+        type: string
+        description: ISO 8601 format YYYY-MM-DD
+      expireDate: 
+        type: string
+        description: ISO 8601 format YYYY-MM-DD
+      featureImageUrl:
+        type: string
+      priority:
+        type: string
+        description: Valid values are null or "high"
+      recurrence:
+        type: string
+      dismissible:
+        type: string
+      audienceFilter:
+        $ref: "#/definitions/AudienceFilter"
+      data:
+        $ref: "#/definitions/Data"
+      ActionButton:
+        $ref: "#/definitions/ActionButton"
+      MoreInfoButton:
+        $ref: "#/definitions/ActionButton"
+      ConfirmButton:
+        $ref: "#/definitions/ActionButton"
+          
+  ActionButton:
+    properties:
+      label: 
+        type: string
+      url:
+        type: string
+        
+  AudienceFilter:
+    properties:
+      groups:
+        type: array
+        items: 
+          type: string
+  
+  Data:
+    properties:
+      dataUrl:
+        type: string
+      dataObject:
+        type: string
+      dataArrayFilter:
+        type: object
+      dataMessageTitle:
+        type: string
+      dataMessageMoreInfoUrl:
+        type: string
